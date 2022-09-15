@@ -1,0 +1,18 @@
+name: Mirror to gitee Repo
+
+on: [ push ]
+
+# Ensures that only one mirror task will run at a time.
+concurrency:
+  group: git-mirror
+
+jobs:
+  git-mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: wearerequired/git-mirror-action@v1
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.GITEE_DEPLOY_KEY }}
+        with:
+          source-repo: "git@173760795.github.com:zhengyanweb/git_study.git"
+          destination-repo: "git@gitee.com:hello-today/git_study.git"
